@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/vidu2/detail.dart';
 import 'package:http/http.dart' as http;
 
 class User {
@@ -90,19 +91,29 @@ class _MyViduDataState extends State<MyViduData> {
             ? Center(
                 child: CircularProgressIndicator(),
               )
-            : ListView.builder(itemBuilder: (context, index) {
-                return Card(
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(_user[index].id.toString()),
-                          Text(_user[index].body.toString())
-                        ],
-                      )
-                    ],
+            : ListView.builder(
+                itemCount: _user.length,
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                      child: Container(
+                    padding: EdgeInsets.all(10.0),
+                    color: Colors.amber,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(_user[index].id.toString()),
+                        Text(_user[index].body.toString()),
+                      ],
+                    ),
                   ),
+                  onTap: (){
+                    int select = int.parse(_user[index].id as String);
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailTastSceen(id:  )));
+                  },
+                  )
+                  ;
+                })
+                
                 );
-              }));
   }
 }
